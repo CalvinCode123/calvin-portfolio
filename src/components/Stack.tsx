@@ -1,7 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import type { Variants } from "framer-motion"; // Type-only import
-
 import {
 	FaReact,
 	FaNodeJs,
@@ -87,14 +85,18 @@ const containerVariants = {
 	},
 };
 
-const itemVariants: Variants = {
-	hidden: { opacity: 0, y: 20, scale: 0.95 },
-	show: {
+const itemVariants = {
+	hidden: { opacity: 0, y: 25, scale: 0.92 },
+	show: (isHighlighted: boolean) => ({
 		opacity: 1,
 		y: 0,
-		scale: 1,
-		transition: { type: "spring", stiffness: 500, damping: 30 },
-	},
+		scale: isHighlighted ? 1.06 : 1,
+		boxShadow: isHighlighted
+			? "0 10px 25px rgba(0,0,0,0.25)"
+			: "0 3px 8px rgba(0,0,0,0.08)",
+		zIndex: isHighlighted ? 10 : 1,
+		transition: { type: "spring", stiffness: 280, damping: 30 },
+	}),
 };
 
 const Stack: React.FC<StackProps> = ({ highlightedTechs }) => {
