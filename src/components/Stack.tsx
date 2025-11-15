@@ -1,5 +1,7 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
+
 import {
 	FaReact,
 	FaNodeJs,
@@ -78,29 +80,32 @@ const techStack: Tech[] = [
 	},
 ];
 
-const containerVariants = {
+const containerVariants: Variants = {
 	hidden: {},
 	show: {
-		transition: { staggerChildren: 0.12 },
+		transition: {
+			staggerChildren: 0.12,
+		},
 	},
 };
 
-const itemVariants = {
-	hidden: { opacity: 0, y: 25, scale: 0.92 },
-	show: (isHighlighted: boolean) => ({
+const itemVariants: Variants = {
+	hidden: {
+		opacity: 0,
+		y: 25,
+	},
+	show: {
 		opacity: 1,
 		y: 0,
-		scale: isHighlighted ? 1.06 : 1,
-		boxShadow: isHighlighted
-			? "0 10px 25px rgba(0,0,0,0.25)"
-			: "0 3px 8px rgba(0,0,0,0.08)",
-		zIndex: isHighlighted ? 10 : 1,
-		transition: { type: "spring", stiffness: 280, damping: 30 },
-	}),
+		transition: {
+			type: "spring",
+			stiffness: 280,
+			damping: 30,
+		},
+	},
 };
 
 const Stack: React.FC<StackProps> = ({ highlightedTechs }) => {
-	const sectionRef = useRef<HTMLElement>(null);
 	const [activeHighlights, setActiveHighlights] =
 		useState<string[]>(highlightedTechs);
 
@@ -121,12 +126,11 @@ const Stack: React.FC<StackProps> = ({ highlightedTechs }) => {
 
 	return (
 		<motion.section
-			ref={sectionRef}
 			id="tech-stack"
 			className="h-screen flex flex-col justify-center items-center px-6 md:px-12 bg-base-100 dark:bg-base-200 snap-start"
 			initial="hidden"
 			whileInView="show"
-			viewport={{ once: true, amount: 0.8 }}
+			viewport={{ amount: 0.25, once: true }} // <— better trigger
 		>
 			<div className="max-w-6xl w-full text-center">
 				<h2 className="text-4xl font-bold mb-4 text-primary">
@@ -143,12 +147,14 @@ const Stack: React.FC<StackProps> = ({ highlightedTechs }) => {
 				>
 					{techStack.map((tech) => {
 						const isHighlighted = activeHighlights.includes(tech.name);
+
 						return (
 							<motion.div
 								key={tech.name}
 								variants={itemVariants}
-								custom={isHighlighted}
-								className="card bg-base-200 dark:bg-base-300 shadow-md will-change-transform"
+								className={`card bg-base-200 dark:bg-base-300 shadow-md transition-transform ${
+									isHighlighted ? "scale-105 shadow-xl" : ""
+								}`}
 							>
 								<div className="card-body items-center text-center">
 									<div className="text-5xl mb-3">{tech.icon}</div>
