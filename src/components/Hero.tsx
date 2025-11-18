@@ -52,10 +52,6 @@ const Hero: React.FC = () => {
 						GitHub
 					</a>
 				</div>
-
-				<p className="mt-6 text-sm text-base-content/50 animate-bounce md:hidden">
-					Scroll down to explore
-				</p>
 			</div>
 			<ScrollIndicator
 				direction="down"

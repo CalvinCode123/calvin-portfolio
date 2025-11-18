@@ -79,23 +79,21 @@ const techStack: Tech[] = [
 		category: "Database",
 	},
 ];
+
 const containerVariants = {
-	hidden: { opacity: 1, scale: 1 }, // match child starting state
-	show: { transition: { staggerChildren: 0.12 } },
+	hidden: { opacity: 1, scale: 1 },
+	show: { transition: { staggerChildren: 0.1 } },
 };
 
 const itemVariants: Variants = {
-	hidden: {
-		opacity: 0,
-		y: 25,
-	},
+	hidden: { opacity: 0, y: 20 },
 	show: {
 		opacity: 1,
 		y: 0,
 		transition: {
 			type: "spring",
-			stiffness: 280,
-			damping: 30,
+			stiffness: 180,
+			damping: 16,
 		},
 	},
 };
@@ -120,27 +118,42 @@ const Stack: React.FC<StackProps> = ({ highlightedTechs }) => {
 		]);
 	};
 
+	const unHighlightCurrentStack = () => {
+		setActiveHighlights([]);
+	};
+
+	useEffect(() => {
+		const handlePageClick = () => {
+			unHighlightCurrentStack();
+		};
+
+		window.addEventListener("click", handlePageClick, { capture: true });
+		return () =>
+			window.removeEventListener("click", handlePageClick, { capture: true });
+	}, []);
+
 	return (
 		<motion.section
 			id="tech-stack"
-			className="h-screen flex flex-col justify-center items-center px-6 md:px-12 bg-base-100 dark:bg-base-200 snap-start"
+			className="min-h-screen flex flex-col justify-center items-center px-3 md:px-12 bg-base-100 dark:bg-base-200 snap-start"
 			initial="hidden"
 			whileInView="show"
 			viewport={{ amount: 0.25, once: true }}
-			onViewportLeave={() => setActiveHighlights([])} // <-- resets when out of view
+			onClick={(e) => e.stopPropagation()}
 		>
 			<div className="max-w-6xl w-full text-center">
-				<h2 className="text-4xl font-bold mb-4 text-primary">
+				<h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
 					Technologies I have experience with
 				</h2>
-				<p className="text-base-content/70 mb-12">
+				<p className="text-base-content/70 mb-8">
 					Technologies I use to build fast, scalable, and beautiful web
 					experiences.
 				</p>
 
+				{/* GRID: 3 columns on mobile, regular size on desktop */}
 				<motion.div
 					variants={containerVariants}
-					className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"
+					className="grid grid-cols-3 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
 				>
 					{techStack.map((tech) => {
 						const isHighlighted = activeHighlights.includes(tech.name);
@@ -149,26 +162,27 @@ const Stack: React.FC<StackProps> = ({ highlightedTechs }) => {
 							<motion.div
 								key={tech.name}
 								variants={itemVariants}
-								className={`card bg-base-200 dark:bg-base-300 shadow-md transition-all duration-300
-  ${
-		isHighlightMode
-			? isHighlighted
-				? "scale-105 shadow-xl"
-				: "opacity-40 grayscale"
-			: ""
-	}
-`}
+								className={`card bg-base-200 dark:bg-base-300 shadow-md transition-all duration-300 rounded-lg
+									${
+										isHighlightMode
+											? isHighlighted
+												? "scale-105 shadow-xl"
+												: "opacity-40 grayscale"
+											: ""
+									}`}
 							>
-								<div className="card-body items-center text-center">
-									<div className="text-5xl mb-3">{tech.icon}</div>
+								<div className="card-body items-center text-center p-1 sm:p-3">
+									<div className="text-3xl sm:text-5xl mb-1 sm:mb-2">
+										{tech.icon}
+									</div>
 									<h3
-										className={`card-title text-lg transition-colors duration-300 ${
+										className={`card-title text-xs sm:text-sm md:text-lg transition-colors duration-300 ${
 											isHighlighted ? "text-primary" : "text-base-content/50"
 										}`}
 									>
 										{tech.name}
 									</h3>
-									<p className="text-sm text-base-content/50">
+									<p className="text-[10px] sm:text-xs md:text-sm text-base-content/50">
 										{tech.category}
 									</p>
 								</div>
@@ -178,15 +192,14 @@ const Stack: React.FC<StackProps> = ({ highlightedTechs }) => {
 				</motion.div>
 
 				<button
-					onClick={highlightCurrentStack}
-					className="btn btn-primary mt-8"
+					onClick={(e) => {
+						e.stopPropagation();
+						highlightCurrentStack();
+					}}
+					className="btn btn-primary mt-6"
 				>
 					My Current Tech Stack
 				</button>
-
-				<p className="mt-6 text-sm text-base-content/50 animate-bounce md:hidden">
-					Scroll down to explore
-				</p>
 			</div>
 		</motion.section>
 	);

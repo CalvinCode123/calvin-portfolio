@@ -1,4 +1,3 @@
-// Projects.tsx
 import React from "react";
 import { FaGithub, FaExternalLinkAlt, FaCode } from "react-icons/fa";
 
@@ -50,33 +49,35 @@ const Projects: React.FC<ProjectsProps> = ({ setHighlightedTechs }) => {
 	return (
 		<section
 			id="projects"
-			className="h-screen snap-start flex flex-col justify-center items-center px-6 
-                bg-gradient-to-b from-base-200 to-white dark:from-base-500 dark:to-white"
+			className="min-h-screen snap-start flex flex-col justify-center items-center my-4 px-3 sm:px-4 md:px-8 bg-gradient-to-b from-base-200 to-white dark:from-base-500 dark:to-white"
 		>
-			<h2 className="text-4xl font-bold mb-4 text-primary">Example Projects</h2>
-			<p className="text-base-content/70 mb-12">
-				Here a a few live examples of projects I have worked on!
+			<h2 className="text-3xl md:text-4xl font-bold mb-3 text-primary text-center">
+				Example Projects
+			</h2>
+			<p className="text-base-content/70 mb-4 text-center text-sm sm:text-base">
+				Here are a few live examples of projects I have worked on!
 			</p>
-			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
+
+			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3 w-full max-w-6xl">
 				{projects.map((project) => (
 					<div
 						key={project.name}
-						className="card bg-base-200 shadow-lg hover:shadow-2xl transition-shadow duration-200 border border-base-300 flex flex-col justify-between"
+						className="card bg-base-200 shadow-md hover:shadow-lg transition-shadow duration-200 border border-base-300 flex flex-col justify-between p-1 sm:p-2 rounded-lg my-2"
 					>
 						<div className="card-body flex flex-col flex-1">
-							<h3 className="card-title text-xl font-semibold">
+							<h3 className="card-title text-sm sm:text-base md:text-lg font-semibold">
 								{project.name}
 							</h3>
-							<p className="text-base-content/70 mt-2 flex-1">
+							<p className="text-base-content/70 mt-1 flex-1 text-xs sm:text-sm md:text-base">
 								{project.description}
 							</p>
 
 							{project.techs && (
-								<div className="mt-4 flex flex-wrap gap-2">
+								<div className="mt-1 flex flex-wrap gap-1 sm:gap-1.5">
 									{project.techs.map((tech) => (
 										<span
 											key={tech}
-											className="badge badge-outline badge-sm text-xs"
+											className="badge badge-outline badge-[0.5rem] sm:badge-xs text-[8px] sm:text-[9px]"
 										>
 											{tech}
 										</span>
@@ -85,13 +86,13 @@ const Projects: React.FC<ProjectsProps> = ({ setHighlightedTechs }) => {
 							)}
 						</div>
 
-						<div className="card-actions justify-center mt-4 mb-4 gap-2">
+						<div className="card-actions justify-center mt-1 mb-1 gap-1 sm:gap-2 flex-wrap">
 							{project.github && (
 								<a
 									href={project.github}
 									target="_blank"
 									rel="noopener noreferrer"
-									className="btn btn-sm btn-outline gap-2"
+									className="btn btn-[0.5rem] sm:btn-xs btn-outline gap-1 sm:gap-2 text-[8px] sm:text-[9px]"
 								>
 									<FaGithub /> GitHub
 								</a>
@@ -101,14 +102,14 @@ const Projects: React.FC<ProjectsProps> = ({ setHighlightedTechs }) => {
 									href={project.website}
 									target="_blank"
 									rel="noopener noreferrer"
-									className="btn btn-sm btn-outline gap-2"
+									className="btn btn-[0.5rem] sm:btn-xs btn-outline gap-1 sm:gap-2 text-[8px] sm:text-[9px]"
 								>
 									<FaExternalLinkAlt /> Website
 								</a>
 							)}
 							{project.techs && (
 								<button
-									className="btn btn-sm btn-outline gap-2"
+									className="btn btn-[0.5rem] sm:btn-xs btn-outline gap-1 sm:gap-2 text-[8px] sm:text-[9px]"
 									onClick={() => handleTechStackClick(project.techs)}
 								>
 									<FaCode /> Tech Stack
