@@ -79,14 +79,9 @@ const techStack: Tech[] = [
 		category: "Database",
 	},
 ];
-
-const containerVariants: Variants = {
-	hidden: {},
-	show: {
-		transition: {
-			staggerChildren: 0.12,
-		},
-	},
+const containerVariants = {
+	hidden: { opacity: 1, scale: 1 }, // match child starting state
+	show: { transition: { staggerChildren: 0.12 } },
 };
 
 const itemVariants: Variants = {
@@ -108,6 +103,7 @@ const itemVariants: Variants = {
 const Stack: React.FC<StackProps> = ({ highlightedTechs }) => {
 	const [activeHighlights, setActiveHighlights] =
 		useState<string[]>(highlightedTechs);
+	const isHighlightMode = activeHighlights.length > 0;
 
 	useEffect(() => {
 		setActiveHighlights(highlightedTechs);
@@ -130,7 +126,8 @@ const Stack: React.FC<StackProps> = ({ highlightedTechs }) => {
 			className="h-screen flex flex-col justify-center items-center px-6 md:px-12 bg-base-100 dark:bg-base-200 snap-start"
 			initial="hidden"
 			whileInView="show"
-			viewport={{ amount: 0.25, once: true }} // <— better trigger
+			viewport={{ amount: 0.25, once: true }}
+			onViewportLeave={() => setActiveHighlights([])} // <-- resets when out of view
 		>
 			<div className="max-w-6xl w-full text-center">
 				<h2 className="text-4xl font-bold mb-4 text-primary">
@@ -152,9 +149,15 @@ const Stack: React.FC<StackProps> = ({ highlightedTechs }) => {
 							<motion.div
 								key={tech.name}
 								variants={itemVariants}
-								className={`card bg-base-200 dark:bg-base-300 shadow-md transition-transform ${
-									isHighlighted ? "scale-105 shadow-xl" : ""
-								}`}
+								className={`card bg-base-200 dark:bg-base-300 shadow-md transition-all duration-300
+  ${
+		isHighlightMode
+			? isHighlighted
+				? "scale-105 shadow-xl"
+				: "opacity-40 grayscale"
+			: ""
+	}
+`}
 							>
 								<div className="card-body items-center text-center">
 									<div className="text-5xl mb-3">{tech.icon}</div>

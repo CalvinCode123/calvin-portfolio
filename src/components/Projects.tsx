@@ -14,7 +14,7 @@ const projects: Project[] = [
 	{
 		name: "Pokepacks",
 		description: "An e-commerce site for trading card merchandise.",
-		github: "https://github.com/yourusername/pokepacks",
+		github: "https://github.com/CalvinCode123/PokePacks",
 		website: "https://pokepacks.com",
 		techs: ["React", "Node.js", "Tailwind CSS", "MongoDB", "JavaScript"],
 	},
@@ -22,15 +22,15 @@ const projects: Project[] = [
 		name: "classTrail",
 		description:
 			"A learning management system for making online teaching more accessible.",
-		github: "https://github.com/yourusername/classnametrail",
+		github: "https://github.com/CalvinCode123/fyp",
 		website: "https://classnametrail.com",
 		techs: ["Django", "Python", "PostgreSQL", "HTML5", "CSS3"],
 	},
 	{
 		name: "Portfolio",
 		description: "My portfolio website built with React and TailwindCSS.",
-		github: "https://github.com/yourusername/portfolio",
-		website: "https://yourportfolio.com",
+		github: "https://github.com/CalvinCode123/calvin-portfolio",
+		website: "https://calvinho.ie",
 		techs: ["React", "TypeScript", "Tailwind CSS"],
 	},
 ];
