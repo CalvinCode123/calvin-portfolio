@@ -81,19 +81,24 @@ const techStack: Tech[] = [
 ];
 
 const containerVariants = {
-	hidden: { opacity: 1, scale: 1 },
-	show: { transition: { staggerChildren: 0.1 } },
+	hidden: {},
+	show: {
+		transition: {
+			staggerChildren: 0.08,
+			delayChildren: 0.1,
+		},
+	},
 };
 
 const itemVariants: Variants = {
-	hidden: { opacity: 0, y: 20 },
+	hidden: { opacity: 0, y: 15, scale: 0.96 },
 	show: {
 		opacity: 1,
 		y: 0,
+		scale: 1,
 		transition: {
-			type: "spring",
-			stiffness: 180,
-			damping: 16,
+			duration: 0.45,
+			ease: [0.16, 1, 0.3, 1],
 		},
 	},
 };
@@ -138,8 +143,7 @@ const Stack: React.FC<StackProps> = ({ highlightedTechs }) => {
 			className="min-h-screen flex flex-col justify-center items-center px-3 md:px-12 bg-base-100 dark:bg-base-200 snap-start"
 			initial="hidden"
 			whileInView="show"
-			viewport={{ amount: 0.25, once: true }}
-			onClick={(e) => e.stopPropagation()}
+			viewport={{ margin: "-80px", once: true }}
 		>
 			<div className="max-w-6xl w-full text-center">
 				<h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
@@ -162,7 +166,7 @@ const Stack: React.FC<StackProps> = ({ highlightedTechs }) => {
 							<motion.div
 								key={tech.name}
 								variants={itemVariants}
-								className={`card bg-base-200 dark:bg-base-300 shadow-md transition-all duration-300 rounded-lg
+								className={`card bg-base-200 dark:bg-base-300 shadow-md rounded-lg p-5
 									${
 										isHighlightMode
 											? isHighlighted
