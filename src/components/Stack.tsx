@@ -82,24 +82,16 @@ const techStack: Tech[] = [
 
 const containerVariants = {
 	hidden: {},
-	show: {
-		transition: {
-			staggerChildren: 0.08,
-			delayChildren: 0.1,
-		},
-	},
+	show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
 };
 
 const itemVariants: Variants = {
-	hidden: { opacity: 0, y: 15, scale: 0.96 },
+	hidden: { opacity: 0, y: 12, scale: 0.95 },
 	show: {
 		opacity: 1,
 		y: 0,
 		scale: 1,
-		transition: {
-			duration: 0.45,
-			ease: [0.16, 1, 0.3, 1],
-		},
+		transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
 	},
 };
 
@@ -123,41 +115,33 @@ const Stack: React.FC<StackProps> = ({ highlightedTechs }) => {
 		]);
 	};
 
-	const unHighlightCurrentStack = () => {
-		setActiveHighlights([]);
-	};
+	const unHighlightCurrentStack = () => setActiveHighlights([]);
 
 	useEffect(() => {
-		const handlePageClick = () => {
-			unHighlightCurrentStack();
-		};
-
-		window.addEventListener("click", handlePageClick, { capture: true });
+		const onClick = () => unHighlightCurrentStack();
+		window.addEventListener("click", onClick, { capture: true });
 		return () =>
-			window.removeEventListener("click", handlePageClick, { capture: true });
+			window.removeEventListener("click", onClick, { capture: true });
 	}, []);
 
 	return (
 		<motion.section
 			id="tech-stack"
-			className="min-h-screen flex flex-col justify-center items-center px-3 md:px-12 bg-base-100 dark:bg-base-200 snap-start"
+			className="min-h-screen flex flex-col justify-center items-center px-4 bg-base-100 dark:bg-base-200 snap-start"
 			initial="hidden"
 			whileInView="show"
 			viewport={{ margin: "-80px", once: true }}
 		>
 			<div className="max-w-6xl w-full text-center">
 				<h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
-					Technologies I have experience with
+					My Technologies
 				</h2>
-				<p className="text-base-content/70 mb-8">
-					Technologies I use to build fast, scalable, and beautiful web
-					experiences.
-				</p>
 
-				{/* GRID: 3 columns on mobile, regular size on desktop */}
+				<p className="text-base-content/70 mb-10"></p>
+
 				<motion.div
 					variants={containerVariants}
-					className="grid grid-cols-3 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+					className="flex flex-wrap justify-center gap-3 px-2 mb-6 md:hidden"
 				>
 					{techStack.map((tech) => {
 						const isHighlighted = activeHighlights.includes(tech.name);
@@ -166,27 +150,56 @@ const Stack: React.FC<StackProps> = ({ highlightedTechs }) => {
 							<motion.div
 								key={tech.name}
 								variants={itemVariants}
-								className={`card bg-base-200 dark:bg-base-300 shadow-md rounded-lg p-5
-									${
-										isHighlightMode
-											? isHighlighted
-												? "scale-105 shadow-xl"
-												: "opacity-40 grayscale"
-											: ""
-									}`}
+								animate={{
+									scale: isHighlighted ? 1.08 : 1,
+									opacity: isHighlightMode && !isHighlighted ? 0.35 : 1,
+									filter:
+										isHighlightMode && !isHighlighted
+											? "grayscale(1)"
+											: "grayscale(0)",
+								}}
+								transition={{ duration: 0.25 }}
+								className="flex items-center gap-2 bg-base-200 dark:bg-base-300 px-3 py-2 rounded-full shadow-sm whitespace-nowrap"
 							>
-								<div className="card-body items-center text-center p-1 sm:p-3">
-									<div className="text-3xl sm:text-5xl mb-1 sm:mb-2">
-										{tech.icon}
-									</div>
+								<span className="text-lg">{tech.icon}</span>
+								<span className="text-sm font-medium">{tech.name}</span>
+							</motion.div>
+						);
+					})}
+				</motion.div>
+
+				<motion.div
+					variants={containerVariants}
+					className="hidden md:grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
+				>
+					{techStack.map((tech) => {
+						const isHighlighted = activeHighlights.includes(tech.name);
+
+						return (
+							<motion.div
+								key={tech.name}
+								variants={itemVariants}
+								animate={{
+									scale: isHighlighted ? 1.05 : 1,
+									opacity: isHighlightMode && !isHighlighted ? 0.4 : 1,
+									filter:
+										isHighlightMode && !isHighlighted
+											? "grayscale(1)"
+											: "grayscale(0)",
+								}}
+								transition={{ duration: 0.3 }}
+								className="card bg-base-200 dark:bg-base-300 shadow-md rounded-lg p-5"
+							>
+								<div className="card-body items-center text-center p-3">
+									<div className="text-4xl mb-2">{tech.icon}</div>
 									<h3
-										className={`card-title text-xs sm:text-sm md:text-lg transition-colors duration-300 ${
-											isHighlighted ? "text-primary" : "text-base-content/50"
+										className={`text-lg font-semibold ${
+											isHighlighted ? "text-primary" : "text-base-content/60"
 										}`}
 									>
 										{tech.name}
 									</h3>
-									<p className="text-[10px] sm:text-xs md:text-sm text-base-content/50">
+									<p className="text-sm text-base-content/50">
 										{tech.category}
 									</p>
 								</div>
@@ -200,7 +213,7 @@ const Stack: React.FC<StackProps> = ({ highlightedTechs }) => {
 						e.stopPropagation();
 						highlightCurrentStack();
 					}}
-					className="btn btn-primary mt-6"
+					className="btn btn-primary mt-10"
 				>
 					My Current Tech Stack
 				</button>
