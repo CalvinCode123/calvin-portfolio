@@ -58,66 +58,68 @@ const Projects: React.FC<ProjectsProps> = ({ setHighlightedTechs }) => {
 				Here are a few live examples of projects I have worked on!
 			</p>
 
-			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3 w-full max-w-6xl">
-				{projects.map((project) => (
-					<div
-						key={project.name}
-						className="card bg-base-200 shadow-md hover:shadow-lg transition-shadow duration-200 border border-base-300 flex flex-col justify-between p-1 sm:p-2 rounded-lg my-2"
-					>
-						<div className="card-body flex flex-col flex-1">
-							<h3 className="card-title text-sm sm:text-base md:text-lg font-semibold">
-								{project.name}
-							</h3>
-							<p className="text-base-content/70 mt-1 flex-1 text-xs sm:text-sm md:text-base">
-								{project.description}
-							</p>
+			{/* Horizontal scroll container on mobile */}
+			<div className="w-full max-w-6xl overflow-x-auto md:overflow-x-visible scrollbar-thin scrollbar-thumb-base-300 scrollbar-track-base-200">
+				<div className="flex gap-3 md:grid md:grid-cols-3">
+					{projects.map((project) => (
+						<div
+							key={project.name}
+							className="flex-shrink-0 w-72 md:w-auto card bg-base-200 shadow-md hover:shadow-lg transition-shadow duration-200 border border-base-300 flex flex-col justify-between p-2 rounded-lg"
+						>
+							<div className="card-body flex flex-col flex-1">
+								<h3 className="card-title text-sm sm:text-base md:text-lg font-semibold">
+									{project.name}
+								</h3>
+								<p className="text-base-content/70 mt-1 flex-1 text-xs sm:text-sm md:text-base">
+									{project.description}
+								</p>
+								{project.techs && (
+									<div className="mt-1 flex flex-wrap gap-1 sm:gap-1.5">
+										{project.techs.map((tech) => (
+											<span
+												key={tech}
+												className="badge badge-outline badge-[0.5rem] sm:badge-xs text-[8px] sm:text-[9px]"
+											>
+												{tech}
+											</span>
+										))}
+									</div>
+								)}
+							</div>
 
-							{project.techs && (
-								<div className="mt-1 flex flex-wrap gap-1 sm:gap-1.5">
-									{project.techs.map((tech) => (
-										<span
-											key={tech}
-											className="badge badge-outline badge-[0.5rem] sm:badge-xs text-[8px] sm:text-[9px]"
-										>
-											{tech}
-										</span>
-									))}
-								</div>
-							)}
+							<div className="card-actions justify-center mt-1 mb-1 gap-1 sm:gap-2 flex-wrap">
+								{project.github && (
+									<a
+										href={project.github}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="btn btn-[0.5rem] sm:btn-xs btn-outline gap-1 sm:gap-2 text-[8px] sm:text-[9px]"
+									>
+										<FaGithub /> GitHub
+									</a>
+								)}
+								{project.website && (
+									<a
+										href={project.website}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="btn btn-[0.5rem] sm:btn-xs btn-outline gap-1 sm:gap-2 text-[8px] sm:text-[9px]"
+									>
+										<FaExternalLinkAlt /> Website
+									</a>
+								)}
+								{project.techs && (
+									<button
+										className="btn btn-[0.5rem] sm:btn-xs btn-outline gap-1 sm:gap-2 text-[8px] sm:text-[9px]"
+										onClick={() => handleTechStackClick(project.techs)}
+									>
+										<FaCode /> Tech Stack
+									</button>
+								)}
+							</div>
 						</div>
-
-						<div className="card-actions justify-center mt-1 mb-1 gap-1 sm:gap-2 flex-wrap">
-							{project.github && (
-								<a
-									href={project.github}
-									target="_blank"
-									rel="noopener noreferrer"
-									className="btn btn-[0.5rem] sm:btn-xs btn-outline gap-1 sm:gap-2 text-[8px] sm:text-[9px]"
-								>
-									<FaGithub /> GitHub
-								</a>
-							)}
-							{project.website && (
-								<a
-									href={project.website}
-									target="_blank"
-									rel="noopener noreferrer"
-									className="btn btn-[0.5rem] sm:btn-xs btn-outline gap-1 sm:gap-2 text-[8px] sm:text-[9px]"
-								>
-									<FaExternalLinkAlt /> Website
-								</a>
-							)}
-							{project.techs && (
-								<button
-									className="btn btn-[0.5rem] sm:btn-xs btn-outline gap-1 sm:gap-2 text-[8px] sm:text-[9px]"
-									onClick={() => handleTechStackClick(project.techs)}
-								>
-									<FaCode /> Tech Stack
-								</button>
-							)}
-						</div>
-					</div>
-				))}
+					))}
+				</div>
 			</div>
 		</section>
 	);

@@ -127,6 +127,7 @@ const Stack: React.FC<StackProps> = ({ highlightedTechs }) => {
 	return (
 		<motion.section
 			id="tech-stack"
+			style={{ height: "100dvh" }}
 			className="min-h-screen flex flex-col justify-center items-center px-4 bg-base-100 dark:bg-base-200 snap-start"
 			initial="hidden"
 			whileInView="show"
