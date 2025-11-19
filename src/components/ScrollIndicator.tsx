@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 interface ScrollIndicatorProps {
@@ -13,13 +13,42 @@ const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({
 	href,
 }) => {
 	const Icon = direction === "down" ? FaChevronDown : FaChevronUp;
+	const isDown = direction === "down";
 
-	const positionClass =
-		direction === "down" ? "absolute bottom-6" : "absolute top-6";
+	// Mobile browser bottom-bar offset
+	const [bottomOffset, setBottomOffset] = useState(0);
+
+	useEffect(() => {
+		const update = () => {
+			if (window.visualViewport) {
+				const offset = window.innerHeight - window.visualViewport.height;
+				setBottomOffset(offset);
+			}
+		};
+
+		update();
+		window.visualViewport?.addEventListener("resize", update);
+		window.visualViewport?.addEventListener("scroll", update);
+
+		return () => {
+			window.visualViewport?.removeEventListener("resize", update);
+			window.visualViewport?.removeEventListener("scroll", update);
+		};
+	}, []);
 
 	return (
 		<div
-			className={`${positionClass} left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2`}
+			style={{
+				position: "absolute", // changed from fixed
+				left: "50%",
+				transform: "translateX(-50%)",
+				bottom: isDown
+					? `calc(env(safe-area-inset-bottom, 0px) + ${bottomOffset + 24}px)`
+					: undefined,
+				top: !isDown ? "24px" : undefined,
+				zIndex: 20,
+			}}
+			className="flex flex-col items-center gap-2"
 		>
 			{href ? (
 				<a href={href}>
@@ -28,6 +57,7 @@ const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({
 			) : (
 				<Icon className="text-primary text-2xl animate-bounce" />
 			)}
+
 			{text && (
 				<span className="text-sm text-base-content/70 animate-pulse">
 					{text}
