@@ -2,3 +2,8 @@
 @plugin "daisyui" {
 	themes: light --default;
 }
+
+section {
+	height: 100dvh;
+	border: 10px solid red;
+}
