@@ -11,17 +11,17 @@ interface Project {
 
 const projects: Project[] = [
 	{
-		name: "Pokepacks",
+		name: "PokePacks",
 		description: "An e-commerce site for trading card merchandise.",
 		github: "https://github.com/CalvinCode123/PokePacks",
 		website: "https://pokepacks.ie",
 		techs: ["React", "Node.js", "Tailwind CSS", "PostresSQL", "JavaScript"],
 	},
 	{
-		name: "classTrail",
+		name: "ClassTrail",
 		description:
 			"A learning management system for making online teaching more accessible.",
-		github: "https://github.com/CalvinCode123/fyp",
+		github: "https://github.com/CalvinCode123/ClassTrail",
 		website: "https://classtrail.calvinho.ie/",
 		techs: ["Django", "Python", "PostgreSQL", "HTML5", "CSS3"],
 	},
