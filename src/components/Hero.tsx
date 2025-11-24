@@ -39,14 +39,16 @@ const Hero: React.FC = () => {
 						Contact Me
 					</a>
 					<a
-						href="/assets/Calvin_CV.pdf"
+						href="/public/CV_Calvin_Ho.pdf"
 						download
 						className="btn btn-lg text-white bg-gradient-to-r from-primary to-secondary bg-[length:400%_100%] bg-[position:75%_0%] transition-transform transform hover:scale-105"
 					>
 						Download CV
 					</a>
 					<a
-						href="#something"
+						href="https://www.github.com/CalvinCode123"
+						target="_blank"
+						rel="noopener noreferrer"
 						className="btn btn-lg text-white bg-gradient-to-r from-primary to-secondary bg-[length:400%_100%] bg-[position:100%_0%] transition-transform transform hover:scale-105"
 					>
 						GitHub

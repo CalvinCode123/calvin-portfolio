@@ -14,15 +14,15 @@ const projects: Project[] = [
 		name: "Pokepacks",
 		description: "An e-commerce site for trading card merchandise.",
 		github: "https://github.com/CalvinCode123/PokePacks",
-		website: "https://pokepacks.com",
-		techs: ["React", "Node.js", "Tailwind CSS", "MongoDB", "JavaScript"],
+		website: "https://pokepacks.ie",
+		techs: ["React", "Node.js", "Tailwind CSS", "PostresSQL", "JavaScript"],
 	},
 	{
 		name: "classTrail",
 		description:
 			"A learning management system for making online teaching more accessible.",
 		github: "https://github.com/CalvinCode123/fyp",
-		website: "https://classnametrail.com",
+		website: "https://classtrail.calvinho.ie/",
 		techs: ["Django", "Python", "PostgreSQL", "HTML5", "CSS3"],
 	},
 	{
@@ -58,7 +58,6 @@ const Projects: React.FC<ProjectsProps> = ({ setHighlightedTechs }) => {
 				Here are a few live examples of projects I have worked on!
 			</p>
 
-			{/* Horizontal scroll container on mobile */}
 			<div className="w-full max-w-6xl overflow-x-auto md:overflow-x-visible scrollbar-thin scrollbar-thumb-base-300 scrollbar-track-base-200">
 				<div className="flex gap-3 md:grid md:grid-cols-3">
 					{projects.map((project) => (
