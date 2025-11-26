@@ -5,7 +5,6 @@ import Hero from "./components/Hero";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Stack from "./components/Stack";
-import { motion } from "motion/react";
 
 const App: React.FC = () => {
 	const [highlightedTechs, setHighlightedTechs] = useState<string[]>([]);
