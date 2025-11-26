@@ -12,16 +12,7 @@ const App: React.FC = () => {
 
 	return (
 		<div className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
-			<motion.div
-				animate={{
-					opacity: 1,
-					y: 0,
-					transition: { duration: 0.5, ease: "easeOut" },
-				}}
-				initial={{ opacity: 0, y: 20 }}
-			>
-				<Hero />
-			</motion.div>
+			<Hero />
 
 			<Stack highlightedTechs={highlightedTechs} />
 
