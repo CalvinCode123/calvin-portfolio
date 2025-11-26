@@ -39,16 +39,16 @@ const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({
 	return (
 		<div
 			style={{
-				position: "absolute", // changed from fixed
+				position: "fixed",
 				left: "50%",
 				transform: "translateX(-50%)",
 				bottom: isDown
-					? `calc(env(safe-area-inset-bottom, 0px) + ${bottomOffset + 24}px)`
+					? `calc(env(safe-area-inset-bottom, 0px) + ${bottomOffset}px + 1rem)`
 					: undefined,
-				top: !isDown ? "24px" : undefined,
-				zIndex: 20,
+				top: !isDown ? `calc(env(safe-area-inset-top, 0px) + 1rem)` : undefined,
+				zIndex: 50,
 			}}
-			className="flex flex-col items-center gap-2"
+			className="scroll-indicator flex flex-col items-center gap-2"
 		>
 			{href ? (
 				<a href={href}>

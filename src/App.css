@@ -6,3 +6,22 @@
 section {
 	min-height: 100svh;
 }
+
+.scroll-indicator {
+	/* pin to viewport so it isn't clipped by section layout changes */
+	position: fixed;
+	left: 50%;
+	transform: translateX(-50%);
+	/* push it above the bottom safe area (fallback 0px) */
+	bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+	z-index: 50;
+}
+
+/* if your indicator sits at the top instead, use this */
+.scroll-indicator--top {
+	position: fixed;
+	left: 50%;
+	transform: translateX(-50%);
+	top: calc(1rem + env(safe-area-inset-top, 0px));
+	z-index: 50;
+}
