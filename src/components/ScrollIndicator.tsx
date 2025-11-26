@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 interface ScrollIndicatorProps {
@@ -15,37 +15,17 @@ const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({
 	const Icon = direction === "down" ? FaChevronDown : FaChevronUp;
 	const isDown = direction === "down";
 
-	// Mobile browser bottom-bar offset
-	const [bottomOffset, setBottomOffset] = useState(0);
-
-	useEffect(() => {
-		const update = () => {
-			if (window.visualViewport) {
-				const offset = window.innerHeight - window.visualViewport.height;
-				setBottomOffset(offset);
-			}
-		};
-
-		update();
-		window.visualViewport?.addEventListener("resize", update);
-		window.visualViewport?.addEventListener("scroll", update);
-
-		return () => {
-			window.visualViewport?.removeEventListener("resize", update);
-			window.visualViewport?.removeEventListener("scroll", update);
-		};
-	}, []);
-
 	return (
 		<div
 			style={{
-				position: "fixed",
+				// absolute so it moves with the section; parent section must be positioned (e.g. className="relative")
+				position: "absolute",
 				left: "50%",
 				transform: "translateX(-50%)",
 				bottom: isDown
-					? `calc(env(safe-area-inset-bottom, 0px) + ${bottomOffset}px + 1rem)`
+					? `calc(1rem + env(safe-area-inset-bottom, 0px))`
 					: undefined,
-				top: !isDown ? `calc(env(safe-area-inset-top, 0px) + 1rem)` : undefined,
+				top: !isDown ? `calc(1rem + env(safe-area-inset-top, 0px))` : undefined,
 				zIndex: 50,
 			}}
 			className="scroll-indicator flex flex-col items-center gap-2"
