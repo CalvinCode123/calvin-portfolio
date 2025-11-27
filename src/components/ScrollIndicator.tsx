@@ -24,7 +24,7 @@ const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({
 
 				// Dynamic viewport + safe area = always above bottom bars
 				bottom: isDown
-					? "calc(env(safe-area-inset-bottom, 0px) + 24px)"
+					? "calc(env(safe-area-inset-bottom, 0px) + 5px)"
 					: undefined,
 
 				top: !isDown ? "5px" : undefined,
