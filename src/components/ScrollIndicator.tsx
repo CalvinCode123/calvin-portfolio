@@ -27,7 +27,7 @@ const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({
 					? "calc(env(safe-area-inset-bottom, 0px) + 24px)"
 					: undefined,
 
-				top: !isDown ? "24px" : undefined,
+				top: !isDown ? "5px" : undefined,
 				zIndex: 20,
 			}}
 			className="flex flex-col items-center gap-2 pointer-events-auto"
