@@ -6,7 +6,7 @@ const Hero: React.FC = () => {
 	return (
 		<section
 			id="hero"
-			className="h-screen snap-start flex flex-col md:flex-row justify-center items-center text-center md:text-left px-6 bg-gradient-to-b from-base-100 to-base-200 gap-12 relative"
+			className="h-dvh snap-start flex flex-col md:flex-row justify-center items-center text-center md:text-left px-6 bg-gradient-to-b from-base-100 to-base-200 gap-12 relative"
 		>
 			<div className="flex-shrink-0">
 				<img

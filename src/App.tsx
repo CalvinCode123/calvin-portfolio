@@ -10,7 +10,7 @@ const App: React.FC = () => {
 	const [highlightedTechs, setHighlightedTechs] = useState<string[]>([]);
 
 	return (
-		<div className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
+		<div className="h-dvh overflow-y-scroll snap-y snap-mandatory scroll-smooth">
 			<Hero />
 
 			<Stack highlightedTechs={highlightedTechs} />
