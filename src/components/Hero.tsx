@@ -39,7 +39,7 @@ const Hero: React.FC = () => {
 						Contact Me
 					</a>
 					<a
-						href="/public/CV_Calvin_Ho.pdf"
+						href="/CV_Calvin_Ho.pdf"
 						download
 						className="btn btn-lg text-white bg-gradient-to-r from-primary to-secondary bg-[length:400%_100%] bg-[position:75%_0%] transition-transform transform hover:scale-105"
 					>
